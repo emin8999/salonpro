@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Настройки</title>
+    <link rel="stylesheet" href="../css/base.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <div id="modal-root"></div>
+    <div class="container">
+      <div class="two-col">
+        <div class="card">
+          <div class="section-title"><h3>Основные настройки</h3></div>
+          <div class="row">
+            <div style="flex: 1">
+              <label>Название салона</label
+              ><input id="set-name" class="input" />
+            </div>
+            <div style="width: 200px">
+              <label>Валюта</label
+              ><input
+                id="set-currency"
+                class="input"
+                placeholder="USD/AZN/EUR"
+              />
+            </div>
+            <div style="width: 160px">
+              <label>Налог, %</label
+              ><input id="set-tax" type="number" class="input" value="0" />
+            </div>
+          </div>
+          <div class="row mt12">
+            <div style="width: 160px">
+              <label>Открытие</label
+              ><input id="set-open" type="time" class="input" value="09:00" />
+            </div>
+            <div style="width: 160px">
+              <label>Закрытие</label
+              ><input id="set-close" type="time" class="input" value="20:00" />
+            </div>
+            <div style="width: 160px">
+              <label>Шаг слота, мин</label
+              ><input id="set-slot" type="number" class="input" value="30" />
+            </div>
+          </div>
+          <div class="row mt16">
+            <button id="set-save" class="btn primary">Сохранить</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title"><h3>Безопасность</h3></div>
+          <div class="small">
+            PIN-код общего доступа к разделам (Клиенты/Заказы/Отчёты/Сотрудники)
+          </div>
+          <div class="mt12">Статус: <b id="pin-current">—</b></div>
+          <div class="row mt12">
+            <button id="pin-set" class="btn">Установить общий PIN</button>
+            <button id="pin-remove" class="btn danger">
+              Удалить общий PIN
+            </button>
+          </div>
+          <div class="hr"></div>
+          <div class="small">
+            Отдельный PIN только для раздела <b>Настройки</b>
+          </div>
+          <div class="mt12">Статус: <b id="pinS-current">—</b></div>
+          <div class="row mt12">
+            <button id="pinS-set" class="btn">Установить PIN Settings</button>
+            <button id="pinS-remove" class="btn danger">
+              Удалить PIN Settings
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title"><h3>Данные</h3></div>
+          <div class="row">
+            <button id="export-json" class="btn">Экспорт JSON</button>
+            <label class="btn"
+              ><input
+                type="file"
+                id="import-json"
+                accept="application/json"
+                style="display: none"
+              />Импорт JSON</label
+            >
+          </div>
+          <div class="small mt12">
+            Экспортируйте данные для резервной копии. Импорт перезаписывает
+            существующие записи.
+          </div>
+        </div>
+      </div>
+
+      <script type="module">
+        import { initSettings } from "../js/settings.js";
+        initSettings();
+      </script>
+    </div>
+    <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+    <script type="module">
+      import { boot } from "../js/app.js";
+      boot("settings.html");
+    </script>
+  </body>
+</html>

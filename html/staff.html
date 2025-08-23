@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Сотрудники</title>
+  <link rel="stylesheet" href="../css/base.css"/>
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="modal-root"></div>
+  <div class="container">
+
+<div class="section-title">
+  <h2>Сотрудники</h2>
+  <button id="st-new" class="btn primary">+ Сотрудник</button>
+</div>
+<div class="table-wrap">
+  <table id="staff" class="table">
+    <thead><tr><th>Имя</th><th>Дни</th><th>Время</th><th>Активен</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div id="st-form" class="card hidden mt16">
+  <div class="section-title"><h3>Сотрудник</h3></div>
+  <div class="row">
+    <div style="flex:1"><label>Имя</label><input id="st-name" class="input"/></div>
+    <div style="width:180px"><label>Цветовая метка</label><input id="st-color" class="input" type="color" value="#0a5fff"/></div>
+    <div style="width:160px"><label>Активен</label><input id="st-active" type="checkbox" checked/></div>
+  </div>
+  <div class="row mt12">
+    <div style="width:160px"><label>Начало</label><input id="st-start" type="time" class="input" value="09:00"/></div>
+    <div style="width:160px"><label>Конец</label><input id="st-end" type="time" class="input" value="20:00"/></div>
+  </div>
+  <div class="mt12">
+    <label>Рабочие дни</label>
+    <div class="chips">
+      <label class="chip"><input type="checkbox" name="st-wd" value="1" checked/> Пн</label>
+      <label class="chip"><input type="checkbox" name="st-wd" value="2" checked/> Вт</label>
+      <label class="chip"><input type="checkbox" name="st-wd" value="3" checked/> Ср</label>
+      <label class="chip"><input type="checkbox" name="st-wd" value="4" checked/> Чт</label>
+      <label class="chip"><input type="checkbox" name="st-wd" value="5" checked/> Пт</label>
+      <label class="chip"><input type="checkbox" name="st-wd" value="6" checked/> Сб</label>
+      <label class="chip"><input type="checkbox" name="st-wd" value="7"/> Вс</label>
+    </div>
+  </div>
+  <div class="row mt12">
+    <button id="st-cancel" class="btn">Отмена</button>
+    <button id="st-save" class="btn primary">Сохранить</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initStaff } from "../js/staff.js";
+  initStaff();
+</script>
+
+  </div>
+  <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+  <script type="module">
+    import { boot } from "../js/app.js";
+    boot("staff.html");
+  </script>
+</body>
+</html>

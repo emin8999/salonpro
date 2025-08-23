@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/base.css"/>
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="modal-root"></div>
+  <div class="container">
+
+<h2 id="salon-title" class="mt8">Salon</h2>
+<div class="grid kpis mt12">
+  <div class="card kpi"><h3>Визиты (сегодня)</h3><div class="num" id="kpi-visits">0</div></div>
+  <div class="card kpi"><h3>Выручка (сегодня)</h3><div class="num" id="kpi-revenue">$0</div></div>
+  <div class="card kpi"><h3>Средний чек</h3><div class="num" id="kpi-avg">$0</div></div>
+</div>
+<div class="card mt16">
+  <div class="section-title"><h3>Ближайшие записи</h3><a class="btn" href="calendar.html">Открыть календарь</a></div>
+  <div id="upcoming" class="grid"></div>
+</div>
+<script type="module">
+  import { initDashboard } from "../js/dashboard.js";
+  initDashboard();
+</script>
+
+  </div>
+  <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+  <script type="module">
+    import { boot } from "../js/app.js";
+    boot("index.html");
+  </script>
+</body>
+</html>

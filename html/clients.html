@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Клиенты</title>
+    <link rel="stylesheet" href="../css/base.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <div id="modal-root"></div>
+    <div class="container">
+      <div class="section-title">
+        <h2>Клиенты</h2>
+        <div class="row">
+          <input
+            id="client-search"
+            class="input"
+            placeholder="Поиск: имя/телефон"
+            style="width: 260px"
+          />
+          <button id="new-client" class="btn primary">+ Новый клиент</button>
+          <div class="right"></div>
+          <button id="export-csv" class="btn">Экспорт CSV</button>
+          <button id="export-xls" class="btn">Экспорт Excel</button>
+          <div style="width: 8px"></div>
+          <label class="btn">
+            Импорт CSV
+            <input
+              id="import-csv"
+              type="file"
+              accept=".csv,text/csv"
+              style="display: none"
+            />
+          </label>
+          <label class="btn">
+            Импорт Excel (.xls)
+            <input
+              id="import-xls"
+              type="file"
+              accept=".xls,application/vnd.ms-excel,text/html"
+              style="display: none"
+            />
+          </label>
+          <button id="download-template" class="btn">Скачать шаблон</button>
+        </div>
+        <!-- <div class="small mt8">
+          Поддерживаемые столбцы: <b>Имя/Name/Full Name</b>,
+          <b>Телефон/Phone</b>, <b>Email</b>, <b>Заметки/Notes</b>. Дубликаты по
+          телефону обновляются.
+        </div> -->
+      </div>
+
+      <div class="table-wrap">
+        <table id="clients" class="table">
+          <thead>
+            <tr>
+              <th>Имя</th>
+              <th>Телефон</th>
+              <th>Визитов</th>
+              <th>Последний визит</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="client-form" class="card hidden mt16">
+        <div class="section-title"><h3>Клиент</h3></div>
+        <div class="row">
+          <div style="flex: 1">
+            <label>Имя</label>
+            <input id="f-name" class="input" />
+          </div>
+          <div style="width: 220px">
+            <label>Телефон</label>
+            <input id="f-phone" class="input" />
+          </div>
+          <div style="width: 260px">
+            <label>Email</label>
+            <input id="f-email" class="input" />
+          </div>
+        </div>
+        <div class="mt12">
+          <label>Заметки</label>
+          <textarea id="f-notes" class="input" rows="3"></textarea>
+        </div>
+        <div class="row mt12">
+          <button id="client-cancel" class="btn">Отмена</button>
+          <button id="client-save" class="btn primary">Сохранить</button>
+        </div>
+      </div>
+
+      <script type="module">
+        import { initClients } from "../js/clients.js";
+        initClients();
+      </script>
+    </div>
+    <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+    <script type="module">
+      import { boot } from "../js/app.js";
+      boot("clients.html");
+    </script>
+  </body>
+</html>
