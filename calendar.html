@@ -1,36 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Календарь</title>
-  <link rel="stylesheet" href="../css/base.css"/>
-</head>
-<body>
-  <div id="app-header"></div>
-  <div id="modal-root"></div>
-  <div class="container">
-
-<div class="section-title">
-  <h2>Календарь</h2>
-  <div class="toolbar">
-    <button id="prev-day" class="btn">←</button>
-    <input id="cal-date" type="date" class="input" style="width:170px"/>
-    <button id="next-day" class="btn">→</button>
-    <select id="staff-filter" class="input" style="width:220px"></select>
-  </div>
-</div>
-<div id="calendar-grid" class="calendar mt12"></div>
-<script type="module">
-  import { initCalendar } from "../js/calendar.js";
-  initCalendar();
-</script>
-
-  </div>
-  <div class="footer small">© SalonPOS — LocalStorage MVP</div>
-  <script type="module">
-    import { boot } from "../js/app.js";
-    boot("calendar.html");
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Календарь</title>
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <div id="modal-root"></div>
+    <div class="container">
+      <div class="section-title">
+        <h2>Календарь</h2>
+        <div class="toolbar">
+          <button id="prev-day" class="btn">←</button>
+          <input id="cal-date" type="date" class="input" style="width: 170px" />
+          <button id="next-day" class="btn">→</button>
+          <select id="staff-filter" class="input" style="width: 220px"></select>
+        </div>
+      </div>
+      <div id="calendar-grid" class="calendar mt12"></div>
+      <script type="module">
+        import { initCalendar } from "./js/calendar.js";
+        initCalendar();
+      </script>
+    </div>
+    <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+    <script type="module">
+      import { boot } from "./js/app.js";
+      boot("calendar.html");
+    </script>
+  </body>
 </html>

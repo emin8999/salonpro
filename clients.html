@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Клиенты</title>
-    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="./css/base.css" />
   </head>
   <body>
     <div id="app-header"></div>
@@ -93,13 +93,13 @@
       </div>
 
       <script type="module">
-        import { initClients } from "../js/clients.js";
+        import { initClients } from "./js/clients.js";
         initClients();
       </script>
     </div>
     <div class="footer small">© SalonPOS — LocalStorage MVP</div>
     <script type="module">
-      import { boot } from "../js/app.js";
+      import { boot } from "./js/app.js";
       boot("clients.html");
     </script>
   </body>

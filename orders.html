@@ -1,38 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Заказы</title>
-  <link rel="stylesheet" href="../css/base.css"/>
-</head>
-<body>
-  <div id="app-header"></div>
-  <div id="modal-root"></div>
-  <div class="container">
-
-<div class="section-title">
-  <h2>Заказы</h2>
-  <div class="row">
-    <input id="ord-search" class="input" placeholder="Поиск по заказам" style="width:260px"/>
-  </div>
-</div>
-<div class="table-wrap">
-  <table id="orders" class="table">
-    <thead><tr><th>#</th><th>Дата</th><th>Клиент</th><th>Позиции</th><th>Итого</th><th>Оплата</th></tr></thead>
-    <tbody></tbody>
-  </table>
-</div>
-<script type="module">
-  import { initOrders } from "../js/orders.js";
-  initOrders();
-</script>
-
-  </div>
-  <div class="footer small">© SalonPOS — LocalStorage MVP</div>
-  <script type="module">
-    import { boot } from "../js/app.js";
-    boot("orders.html");
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Заказы</title>
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <div id="modal-root"></div>
+    <div class="container">
+      <div class="section-title">
+        <h2>Заказы</h2>
+        <div class="row">
+          <input
+            id="ord-search"
+            class="input"
+            placeholder="Поиск по заказам"
+            style="width: 260px"
+          />
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="orders" class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Дата</th>
+              <th>Клиент</th>
+              <th>Позиции</th>
+              <th>Итого</th>
+              <th>Оплата</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <script type="module">
+        import { initOrders } from "./js/orders.js";
+        initOrders();
+      </script>
+    </div>
+    <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+    <script type="module">
+      import { boot } from "./js/app.js";
+      boot("orders.html");
+    </script>
+  </body>
 </html>

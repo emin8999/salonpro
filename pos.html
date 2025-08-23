@@ -1,67 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Касса</title>
-  <link rel="stylesheet" href="../css/base.css"/>
-</head>
-<body>
-  <div id="app-header"></div>
-  <div id="modal-root"></div>
-  <div class="container">
-
-<div class="two-col">
-  <div class="card">
-    <div class="section-title"><h3>Новый чек</h3></div>
-    <div class="row">
-      <div style="min-width:220px;flex:1">
-        <label>Клиент</label>
-        <select id="pos-client" class="input"></select>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Касса</title>
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <div id="modal-root"></div>
+    <div class="container">
+      <div class="two-col">
+        <div class="card">
+          <div class="section-title"><h3>Новый чек</h3></div>
+          <div class="row">
+            <div style="min-width: 220px; flex: 1">
+              <label>Клиент</label>
+              <select id="pos-client" class="input"></select>
+            </div>
+          </div>
+          <div class="table-wrap mt12">
+            <table class="table" id="pos-items">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Наименование</th>
+                  <th>Кол-во</th>
+                  <th>Цена</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="row mt12">
+            <div class="right small">
+              Промежуточный итог: <b id="pos-subtotal">$0</b>
+            </div>
+          </div>
+          <div class="row mt8 small">
+            <div class="right">Налоги: <b id="pos-taxes">$0</b></div>
+          </div>
+          <div class="row mt8">
+            <div class="right">
+              <h3>ИТОГО: <span id="pos-total">$0</span></h3>
+            </div>
+          </div>
+          <div class="row mt12">
+            <span class="small">Печать:</span>
+            <label
+              ><input type="radio" name="print-mode" value="58" /> 58мм</label
+            >
+            <label
+              ><input type="radio" name="print-mode" value="80" checked />
+              80мм</label
+            >
+            <label
+              ><input type="radio" name="print-mode" value="pad" /> Pad</label
+            >
+          </div>
+          <div class="row mt12">
+            <button class="btn ok" data-pay="cash">Оплата: НАЛ</button>
+            <button class="btn primary" data-pay="card">Оплата: КАРТА</button>
+            <button class="btn" data-pay="other">Иное</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title"><h3>Услуги</h3></div>
+          <div id="pos-services" class="grid"></div>
+        </div>
       </div>
+      <script type="module">
+        import { initPOS } from "./js/pos.js";
+        initPOS();
+      </script>
     </div>
-    <div class="table-wrap mt12">
-      <table class="table" id="pos-items">
-        <thead><tr><th>#</th><th>Наименование</th><th>Кол-во</th><th>Цена</th><th></th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="row mt12">
-      <div class="right small">Промежуточный итог: <b id="pos-subtotal">$0</b></div>
-    </div>
-    <div class="row mt8 small">
-      <div class="right">Налоги: <b id="pos-taxes">$0</b></div>
-    </div>
-    <div class="row mt8">
-      <div class="right"><h3>ИТОГО: <span id="pos-total">$0</span></h3></div>
-    </div>
-    <div class="row mt12">
-      <span class="small">Печать:</span>
-      <label><input type="radio" name="print-mode" value="58"> 58мм</label>
-      <label><input type="radio" name="print-mode" value="80" checked> 80мм</label>
-      <label><input type="radio" name="print-mode" value="pad"> Pad</label>
-    </div>
-    <div class="row mt12">
-      <button class="btn ok" data-pay="cash">Оплата: НАЛ</button>
-      <button class="btn primary" data-pay="card">Оплата: КАРТА</button>
-      <button class="btn" data-pay="other">Иное</button>
-    </div>
-  </div>
-  <div class="card">
-    <div class="section-title"><h3>Услуги</h3></div>
-    <div id="pos-services" class="grid"></div>
-  </div>
-</div>
-<script type="module">
-  import { initPOS } from "../js/pos.js";
-  initPOS();
-</script>
-
-  </div>
-  <div class="footer small">© SalonPOS — LocalStorage MVP</div>
-  <script type="module">
-    import { boot } from "../js/app.js";
-    boot("pos.html");
-  </script>
-</body>
+    <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+    <script type="module">
+      import { boot } from "./js/app.js";
+      boot("pos.html");
+    </script>
+  </body>
 </html>
