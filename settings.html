@@ -9,6 +9,15 @@
   <body>
     <div id="app-header"></div>
     <div id="modal-root"></div>
+    <button id="burger-btn" class="burger-btn">&#9776;</button>
+
+    <!-- Модальное меню -->
+    <div id="burger-overlay" class="overlay">
+      <div class="burger-menu">
+        <button id="close-burger" class="close-btn">&times;</button>
+        <div id="burger-nav"></div>
+      </div>
+    </div>
     <div class="container">
       <div class="two-col">
         <div class="card">
@@ -101,6 +110,8 @@
       </script>
     </div>
     <div class="footer small">© SalonPOS — LocalStorage MVP</div>
+    <script src="./js/mobileNav.js"></script>
+
     <script type="module">
       import { boot } from "./js/app.js";
       boot("settings.html");

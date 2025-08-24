@@ -17,27 +17,42 @@ export function renderNav(active) {
   ];
 
   el.innerHTML = `
-  <div class="header">
-    <div class="nav">
+    <div class="header">
       <a href="index.html" class="brand">SalonPOS</a>
-      ${links
-        .map(
-          ([href, name]) =>
-            `<a class="${
-              active === href ? "active" : ""
-            }" href="${href}" data-href="${href}">${name}</a>`
-        )
-        .join("")}
-      <a id="lock-link" class="right btn no-print" href="javascript:void(0)">🔒 Lock</a>
+      <div class="nav">
+        ${links
+          .map(
+            ([href, name]) => `
+          <a class="${
+            active === href ? "active" : ""
+          }" href="${href}" data-href="${href}">${name}</a>
+        `
+          )
+          .join("")}
+        <a id="lock-link" class="right btn no-print" href="javascript:void(0)">🔒 Lock</a>
+      </div>
     </div>
-  </div>`;
+  `;
 
-  document.getElementById("lock-link").onclick = async () => {
-    await requestPin("general"); // или другой режим
+  const lockLink = document.getElementById("lock-link");
+  lockLink.onclick = async () => {
+    await requestPin("general");
     lockNow();
   };
 
-  // Группы вкладок
+  // Бургер меню
+  const burgerNav = document.getElementById("burger-nav");
+  burgerNav.innerHTML = links
+    .map(
+      ([href, name]) => `
+      <a class="${
+        active === href ? "active" : ""
+      }" href="${href}" data-href="${href}">${name}</a>
+    `
+    )
+    .join("");
+
+  // PIN-защита для всех ссылок (nav + burger)
   const GENERAL_PROTECTED = new Set([
     "clients.html",
     "orders.html",
@@ -46,78 +61,63 @@ export function renderNav(active) {
   ]);
   const SETTINGS_ONLY = "settings.html";
 
-  el.querySelectorAll("a[data-href]").forEach((a) => {
+  // Навешиваем обработчики после вставки ссылок
+  const allLinks = el.querySelectorAll("a[data-href]");
+  const burgerLinks = burgerNav.querySelectorAll("a[data-href]");
+
+  [...allLinks, ...burgerLinks].forEach((a) => {
     const href = a.getAttribute("data-href");
 
-    // Settings — свой PIN
-    if (href === SETTINGS_ONLY) {
-      a.addEventListener("click", async (e) => {
+    a.addEventListener("click", async (e) => {
+      if (href === SETTINGS_ONLY) {
         e.preventDefault();
-        await requestPin("settings"); // спрашиваем отдельный PIN
+        await requestPin("settings");
         window.location.href = href;
-      });
-      return;
-    }
-
-    // Остальные защищённые — общий PIN
-    if (GENERAL_PROTECTED.has(href)) {
-      a.addEventListener("click", async (e) => {
+        return;
+      }
+      if (GENERAL_PROTECTED.has(href)) {
         e.preventDefault();
-        await requestPin("general"); // заново спросить общий PIN
+        await requestPin("general");
         window.location.href = href;
-      });
+      }
+    });
+  });
+
+  // Бургер логика
+  const burgerBtn = document.getElementById("burger-btn");
+  const overlay = document.getElementById("burger-overlay");
+  const closeBtn = document.getElementById("close-burger");
+
+  function openBurger() {
+    overlay.classList.add("show");
+    burgerBtn.style.display = "none";
+    closeBtn.style.display = "block";
+  }
+
+  function closeBurger() {
+    overlay.classList.remove("show");
+    burgerBtn.style.display = "block";
+    closeBtn.style.display = "none";
+  }
+
+  burgerBtn.onclick = openBurger;
+  closeBtn.onclick = closeBurger;
+  overlay.onclick = (e) => {
+    if (e.target === overlay) closeBurger();
+  };
+
+  function checkWidth() {
+    if (window.innerWidth > 900) {
+      burgerBtn.style.display = "none";
+      closeBtn.style.display = "none";
+      overlay.classList.remove("show");
+    } else {
+      if (!overlay.classList.contains("show")) {
+        burgerBtn.style.display = "block";
+      }
     }
-  });
-  const nav = document.querySelector(".nav");
+  }
 
-  nav.addEventListener("wheel", (e) => {
-    if (e.deltaY !== 0) {
-      e.preventDefault();
-      nav.scrollLeft += e.deltaY;
-    }
-  });
-
-  let isDown = false;
-  let startX;
-  let scrollLeft;
-
-  nav.addEventListener("mousedown", (e) => {
-    isDown = true;
-    nav.classList.add("dragging");
-    startX = e.pageX - nav.offsetLeft;
-    scrollLeft = nav.scrollLeft;
-  });
-
-  nav.addEventListener("mouseleave", () => {
-    isDown = false;
-    nav.classList.remove("dragging");
-  });
-
-  nav.addEventListener("mouseup", () => {
-    isDown = false;
-    nav.classList.remove("dragging");
-  });
-
-  nav.addEventListener("mousemove", (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - nav.offsetLeft;
-    const walk = (x - startX) * 1;
-    nav.scrollLeft = scrollLeft - walk;
-  });
-
-  // 🔹 Поддержка тач-свайпа
-  let touchStartX = 0;
-  let touchScrollLeft = 0;
-
-  nav.addEventListener("touchstart", (e) => {
-    touchStartX = e.touches[0].pageX;
-    touchScrollLeft = nav.scrollLeft;
-  });
-
-  nav.addEventListener("touchmove", (e) => {
-    const x = e.touches[0].pageX;
-    const walk = x - touchStartX;
-    nav.scrollLeft = touchScrollLeft - walk;
-  });
+  window.addEventListener("resize", checkWidth);
+  window.addEventListener("load", checkWidth);
 }
