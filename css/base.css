@@ -45,11 +45,17 @@ a {
   gap: 10px;
   overflow: auto;
   padding: 10px 20px;
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+
 .nav a {
-  padding: 8px 12px;
   border-radius: 10px;
   color: #cfe0ff;
+  flex: 0 0 auto;
+  padding: 10px 15px;
 }
 .nav a.active {
   background: var(--accent);
@@ -320,6 +326,12 @@ label {
 .pin-lock.show {
   display: flex;
 }
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
 /* Print styles for receipts */
 @media print {
   .no-print {
@@ -357,4 +369,9 @@ label {
 .receipt .total {
   font-weight: 700;
   padding-top: 6px;
+}
+@media (max-width: 900px) {
+  * {
+    font-size: 14px;
+  }
 }

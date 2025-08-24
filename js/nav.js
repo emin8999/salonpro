@@ -32,7 +32,10 @@ export function renderNav(active) {
     </div>
   </div>`;
 
-  document.getElementById("lock-link").onclick = lockNow;
+  document.getElementById("lock-link").onclick = async () => {
+    await requestPin("general"); // или другой режим
+    lockNow();
+  };
 
   // Группы вкладок
   const GENERAL_PROTECTED = new Set([
@@ -64,5 +67,57 @@ export function renderNav(active) {
         window.location.href = href;
       });
     }
+  });
+  const nav = document.querySelector(".nav");
+
+  nav.addEventListener("wheel", (e) => {
+    if (e.deltaY !== 0) {
+      e.preventDefault();
+      nav.scrollLeft += e.deltaY;
+    }
+  });
+
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  nav.addEventListener("mousedown", (e) => {
+    isDown = true;
+    nav.classList.add("dragging");
+    startX = e.pageX - nav.offsetLeft;
+    scrollLeft = nav.scrollLeft;
+  });
+
+  nav.addEventListener("mouseleave", () => {
+    isDown = false;
+    nav.classList.remove("dragging");
+  });
+
+  nav.addEventListener("mouseup", () => {
+    isDown = false;
+    nav.classList.remove("dragging");
+  });
+
+  nav.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - nav.offsetLeft;
+    const walk = (x - startX) * 1;
+    nav.scrollLeft = scrollLeft - walk;
+  });
+
+  // 🔹 Поддержка тач-свайпа
+  let touchStartX = 0;
+  let touchScrollLeft = 0;
+
+  nav.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].pageX;
+    touchScrollLeft = nav.scrollLeft;
+  });
+
+  nav.addEventListener("touchmove", (e) => {
+    const x = e.touches[0].pageX;
+    const walk = x - touchStartX;
+    nav.scrollLeft = touchScrollLeft - walk;
   });
 }
