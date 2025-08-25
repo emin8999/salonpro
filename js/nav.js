@@ -17,41 +17,57 @@ export function renderNav(active) {
   ];
 
   el.innerHTML = `
-    <div class="header">
-      <a href="index.html" class="brand">SalonPOS</a>
-      <div class="nav">
-        ${links
-          .map(
-            ([href, name]) => `
-          <a class="${
-            active === href ? "active" : ""
-          }" href="${href}" data-href="${href}">${name}</a>
-        `
-          )
-          .join("")}
-        <a id="lock-link" class="right btn no-print" href="javascript:void(0)">🔒 Lock</a>
-      </div>
+  <div class="header">
+    <a href="index.html" class="brand">SalonPOS</a>
+    <div class="nav">
+      ${links
+        .map(
+          ([href, name]) => `
+        <a class="${
+          active === href ? "active" : ""
+        }" href="${href}" data-href="${href}">
+          ${name}
+        </a>
+      `
+        )
+        .join("")}
+      <a id="lock-link-main" class="right btn no-print" href="javascript:void(0)">🔒 Lock</a>
     </div>
-  `;
-
-  const lockLink = document.getElementById("lock-link");
-  lockLink.onclick = async () => {
-    await requestPin("general");
-    lockNow();
-  };
+  </div>
+`;
 
   // Бургер меню
   const burgerNav = document.getElementById("burger-nav");
-  burgerNav.innerHTML = links
-    .map(
-      ([href, name]) => `
-      <a class="${
-        active === href ? "active" : ""
-      }" href="${href}" data-href="${href}">${name}</a>
+  burgerNav.innerHTML =
+    links
+      .map(
+        ([href, name]) => `
+    <a class="${
+      active === href ? "active" : ""
+    }" href="${href}" data-href="${href}">
+      ${name}
+    </a>
+  `
+      )
+      .join("") +
     `
-    )
-    .join("");
+  <a id="lock-link-burger" class="right btn no-print" href="javascript:void(0)">🔒 Lock</a>
+`;
 
+  // Общий обработчик
+  function setupLockHandler(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.onclick = async () => {
+        await requestPin("general");
+        lockNow();
+      };
+    }
+  }
+
+  // Вешаем на оба
+  setupLockHandler("lock-link-main");
+  setupLockHandler("lock-link-burger");
   // PIN-защита для всех ссылок (nav + burger)
   const GENERAL_PROTECTED = new Set([
     "clients.html",
